@@ -1,26 +1,41 @@
-class Overload {
-  static string GetTypeInfo(string str) {
-  	return "Строка";
-  }
-  static string GetTypeInfo(int a) {
-  	return "Целое число";
-  }
-  static string GetTypeInfo(double a) {
-  	return "Вещественное число";
-  }
-  static string GetTypeInfo(char c) {
-  	return "Символ";
-  }
-  static void Main() {
-    Console.Write("Перегрузка метода с разными типами параметров");
-    string str = Console.ReadLine();
-    int a = int.Parse(str);
-    double b = (double) a;
-    char c = str[0];
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine(GetTypeInfo(str));
-    Console.WriteLine(GetTypeInfo(a));
-    Console.WriteLine(GetTypeInfo(b));
-    Console.WriteLine(GetTypeInfo(c));
-  }
+/// <summary>
+/// Перегрузка метода с разными типами параметров
+/// </summary>
+class Overload
+{
+    static string GetTypeInfo(string str)
+    {
+        return "Строка";
+    }
+    static string GetTypeInfo(int integral)
+    {
+        return "Целое число";
+    }
+    static string GetTypeInfo(double real)
+    {
+        return "Вещественное число";
+    }
+    static string GetTypeInfo(char symbol)
+    {
+        return "Символ";
+    }
+    static void Main()
+    {
+        var input = Console.ReadLine();
+        if (input != null)
+        {
+            string str = input;
+            int integral = int.Parse(input);
+            double real = (double)integral;
+            char symbol = input[0];
+            Console.WriteLine(GetTypeInfo(str));
+            Console.WriteLine(GetTypeInfo(integral));
+            Console.WriteLine(GetTypeInfo(real));
+            Console.WriteLine(GetTypeInfo(symbol));
+        }
+        else
+        {
+            Console.WriteLine("input is null");
+        }
+    }
 }
