@@ -15,13 +15,7 @@ namespace Matrix
             this.Rows = 1;
             this.Columns = 1;
             this.mass = new int[Rows, Columns];
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = 0; j < Columns; j++)
-                {
-                    mass[i,j] = 0;
-                }
-            }
+            mass[0,0] = 0;
         }
         /// <summary>
         /// Конструктор класса Matrix.
@@ -35,7 +29,7 @@ namespace Matrix
             mass = new int[rows, columns];
         }
         /// <summary>
-        /// Метод установления значения элементу матрицы
+        /// Метод установления значения для элемента матрицы
         /// </summary>
         /// <param name="row">Строка элемента</param>
         /// <param name="column">Столбец элемента</param>
@@ -49,7 +43,7 @@ namespace Matrix
         /// </summary>
         /// <param name="row">Строка элемента</param>
         /// <param name="column">Столбец элемента</param>
-        /// <returns></returns>
+        /// <returns>Возвращает значение элемента матрицы</returns>
         public int GetValue(int row, int column)
         {
             return mass[row, column];
@@ -59,7 +53,7 @@ namespace Matrix
         /// </summary>
         /// <param name="a">Матрица, к элементам которой нужно прибавить значения элементов второй</param>
         /// <param name="b">Матрица, значения элементов которой нужно прибавить к первой</param>
-        /// <returns>Возвращает матрицу с сумированными значениями элементов</returns>
+        /// <returns>Возвращает матрицу с сумированными значениями элементов двух матриц</returns>
         public static Matrix operator +(Matrix a, Matrix b)
         {
             Matrix sum = new Matrix(a.Rows, a.Columns);
@@ -75,9 +69,9 @@ namespace Matrix
         /// <summary>
         /// Разница двух матриц
         /// </summary>
-        /// <param name="a">Матрица, у элементов которой нужно отнять значения элементов второй</param>
+        /// <param name="a">Матрица, от элементов которой нужно отнять значения элементов второй</param>
         /// <param name="b">Матрица, значения элементов которой нужно отнять от первой</param>
-        /// <returns>Возвращает матрицу с отнятыми из первой значениями элементов второй</returns>
+        /// <returns>Возвращает матрицу</returns>
         public static Matrix operator -(Matrix a, Matrix b)
         {
             Matrix dif = new Matrix(a.Rows, a.Columns);
