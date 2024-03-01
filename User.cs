@@ -9,12 +9,12 @@ namespace ConsoleApp1
 {
 	public class User
 	{
+		private uint _Id;
 		private uint Id
 		{
 			get
 			{
-
-				return this.Id;
+				return _Id;
 			}
 			set
 			{
@@ -22,24 +22,31 @@ namespace ConsoleApp1
 					throw new Exception("nope");
 				} else
 				{
-					this.Id = value;
+					this._Id = value;
 				}
 			}
 		}
-		private string AllowedNameSymbols = "абвеёжзийклмнопрстуфхцчшщьыъэюя";
-		private string AllowedSymbolsPassword = "abcedfghijklmnopqrstuvwxyz";
-		private string AllowedSymbolsPassword = "abcedfghijklmnopqrstuvwxyz";
-		private string AllowedEmailSymbols = LatinSymbols;
-
+		private string CyrillicSymbols = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+		private string LatinSymbols = "";
+		for (int i = 97; i <= 122; i++) {
+			LatinSymbols += (char)i;
+		}
+		private string SpecialSymbols = "";
+		for (int i = 33; i <= 46; i++) {
+			SpecialSymbols += (char)i;
+		}
+		private string AllowedPasswordSymbols = LatinSymbols + SpecialSymbols;
+		private string AllowedEmailSymbols = LatinSymbols + "@.";
+		private string _FirstName;
 		public string FirstName {
 			get
 			{
-				return this.FirstName;
+				return _FirstName;
 			}
 			set
 			{
 				foreach (char c in value) {
-					if (!AllowedNameSymbols.Contains(c.ToString())) {
+					if (!CyrillicSymbols.Contains(c.ToString())) {
 						throw new Exception("Содержатся не русские символы");
 					}
 				}
@@ -51,20 +58,21 @@ namespace ConsoleApp1
 					throw new Exception(">12");
 				} else
 				{
-					this.FirstName = value;
+					this._FirstName = value;
 				}
 			}
 		}
+		private string _LastName;
 		public string LastName
 		{
 			get
 			{
-				return this.LastName;
+				return this._LastName;
 			}
 			set
 			{
 				foreach (char c in value) {
-					if (!AllowedNameSymbols.Contains(c.ToString())) {
+					if (!CyrillicSymbols.Contains(c.ToString())) {
 						throw new Exception("Содержатся не русские символы");
 					}
 				}
@@ -76,10 +84,11 @@ namespace ConsoleApp1
 					throw new Exception(">12");
 				} else
 				{
-					this.LastName = value;
+					this._LastName = value;
 				}
 			}
 		}
+		private string _Password;
 		public string Password
 		{
 			get
@@ -88,10 +97,17 @@ namespace ConsoleApp1
 			}
 			set
 			{
+				bool hasSpecialSymbol = true;
 				foreach (char c in value) {
-					if (!AllowedSymbolsPassword.Contains(c.ToString())) {
-						throw new Exception("Содержатся не английские символы или не разрешенные спец. символы");
+					if (!AllowedPasswordSymbols.Contains(c.ToString())) {
+						throw new Exception($"Содержатся не английские символы или не разрешенные спец. символы Символ: {c}");
 					}
+					if (SpecialSymbols.Contains(c)) {
+						hasSpecialSymbol = true;
+					}
+				}
+				if (!hasSpecialSymbol) {
+					throw new Exception("Отсутствует спец. символ");
 				}
 				if (String.IsNullOrWhiteSpace(value) || String.IsNullOrEmpty(value)) {
 					throw new Exception("null/пробелы/пусто");
@@ -101,28 +117,33 @@ namespace ConsoleApp1
 					throw new Exception(">12");
 				} else
 				{
-					this.Password = value;
+					this._Password = value;
 				}
 			}
 		}
+		private string _Email;
 		public string Email
 		{
 			get
 			{
-				return this.Email;
+				return this._Email;
 			}
 			set
 			{
+				uint sobakaCount = 0;
 				foreach (char c in value.ToString()) {
-					if (!AllowedSymbolsPassword.Contains(c)) {
+					if (!AllowedEmailSymbols.Contains(c)) {
 						throw new Exception("Содержатся не английские символы или не разрешенные спец. символы");
 					}
+					if (c == '@') {
+						sobakaCount++;
+					}
 				}
-				if (value is null || value.ToString().Contains(" ")) {
-					throw new Exception("null");
+				if (value.IsNullOrEmpty || value.IsNullOrWhiteSpace {
+					throw new Exception("null/пробелы/пусто");
 				} else
 				{
-					this.Email = value;
+					this._Email = value;
 				}
 			}
 		}
