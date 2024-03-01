@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -153,8 +152,8 @@ namespace ConsoleApp1
 			this.Password = password;
 			this.Email = email;
 		}
-		public static uint GetId(User user) {
-			return user.Id;
+		public uint GetId(User user) {
+			return this.user.Id;
 		}
 		public override string ToString() {
 			return $"{Id} | {FirstName} {LastName} {Email} | {Password}";
