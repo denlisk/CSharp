@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 
-namespace Program {
-	public static class DrivesInfo {
+namespace DrivesInfo {
+	public static class Program {
 		DriveInfo[] Drives = DriveInfo.GetDrives();
 		static void GetDrivesInfo() {
 			foreach (DriveInfo drive in Drives)
