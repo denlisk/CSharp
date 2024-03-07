@@ -92,7 +92,7 @@ namespace ConsoleApp1
 			}
 			set
 			{
-				bool hasSpecialSymbol = true;
+				bool hasSpecialSymbol = false;
 				foreach (char c in value) {
 					if (!AllowedPasswordSymbols.Contains(c.ToString())) {
 						throw new Exception($"Содержатся не английские символы или не разрешенные спец. символы\nНеразрешенный символ: {c}");
