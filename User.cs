@@ -25,19 +25,14 @@ namespace ConsoleApp1
 				}
 			}
 		}
-		private string CyrillicSymbols = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-		private string LatinSymbols = "";
-		for (int i = 97; i <= 122; i++) {
-			LatinSymbols += (char)i;
-		}
-		private string SpecialSymbols = "";
-		for (int i = 33; i <= 46; i++) {
-			SpecialSymbols += (char)i;
-		}
-		private string AllowedPasswordSymbols = LatinSymbols + SpecialSymbols;
+		private readonly static string CyrillicSymbols = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" + "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".ToUpper();
+		private static string LatinSymbols = "abcdefghijklmnopqrstuvwxyz" + "abcdefghijklmnopqrstuvwxyz".ToUpper();
+		private static string SpecialSymbols = "!\"#$%&'()*+,-.";
+		private static string AllowedPasswordSymbols = LatinSymbols + SpecialSymbols;
 		private string AllowedEmailSymbols = LatinSymbols + "@.";
 		private string _FirstName;
-		public string FirstName {
+		public string FirstName
+		{
 			get
 			{
 				return _FirstName;
@@ -48,7 +43,7 @@ namespace ConsoleApp1
 					if (!CyrillicSymbols.Contains(c.ToString())) {
 						throw new Exception("Содержатся не русские символы");
 					}
-					
+
 				}
 				if (String.IsNullOrWhiteSpace(value) || String.IsNullOrEmpty(value)) {
 					throw new Exception("null/пробелы/пусто");
@@ -93,14 +88,14 @@ namespace ConsoleApp1
 		{
 			get
 			{
-				return "Password is hidden";
+				return this._Password;
 			}
 			set
 			{
 				bool hasSpecialSymbol = true;
 				foreach (char c in value) {
 					if (!AllowedPasswordSymbols.Contains(c.ToString())) {
-						throw new Exception($"Содержатся не английские символы или не разрешенные спец. символы Символ: {c}");
+						throw new Exception($"Содержатся не английские символы или не разрешенные спец. символы\nНеразрешенный символ: {c}");
 					}
 					if (SpecialSymbols.Contains(c)) {
 						hasSpecialSymbol = true;
@@ -149,25 +144,38 @@ namespace ConsoleApp1
 				if (dotsCount == 0) {
 					throw new Exception("Точки");
 				}
-				if (value.IsNullOrEmpty || value.IsNullOrWhiteSpace {
+				if (String.IsNullOrEmpty(value) || String.IsNullOrWhiteSpace(value)) {
 					throw new Exception("null/пробелы/пусто");
 				} else
-					{
-						this._Email = value;
-					}
+				{
+					this._Email = value;
 				}
 			}
-			public User(string firstName, string lastName, string password, string email) {
-				this.FirstName = firstName;
-				this.LastName = lastName;
-				this.Password = password;
-				this.Email = email;
-			}
-			public uint GetId(User user) {
-				return this.user.Id;
-			}
-			public override string ToString() {
-				return $"{Id} | {FirstName} {LastName} {Email} | {Password}";
-			}
+		}
+		public User(uint id, string firstName, string lastName, string password, string email) {
+			this._Id = id;
+			this._FirstName = firstName;
+			this._LastName = lastName;
+			this._Password = password;
+			this._Email = email;
+			this.Id = id;
+			this.FirstName = firstName;
+			this.LastName = lastName;
+			this.Password = password;
+			this.Email = email;
+		}
+		public static uint GetId(User user) {
+			return user.Id;
+		}
+		public override string ToString() {
+			return $"{Id} | {FirstName} {LastName} {Email} | {Password}";
 		}
 	}
+	class Program
+	{
+		static void Main() {
+			User user = new User(1, "Имя", "Фамилия", "PaS$w*rd", "smth@das.g");
+			Console.WriteLine(user);
+		}
+	}
+}
