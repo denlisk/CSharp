@@ -48,6 +48,7 @@ namespace ConsoleApp1
 					if (!CyrillicSymbols.Contains(c.ToString())) {
 						throw new Exception("Содержатся не русские символы");
 					}
+					
 				}
 				if (String.IsNullOrWhiteSpace(value) || String.IsNullOrEmpty(value)) {
 					throw new Exception("null/пробелы/пусто");
@@ -130,6 +131,7 @@ namespace ConsoleApp1
 			set
 			{
 				uint sobakaCount = 0;
+				uint dotsCount = 0;
 				foreach (char c in value.ToString()) {
 					if (!AllowedEmailSymbols.Contains(c)) {
 						throw new Exception("Содержатся не английские символы или не разрешенные спец. символы");
@@ -137,26 +139,35 @@ namespace ConsoleApp1
 					if (c == '@') {
 						sobakaCount++;
 					}
+					if (c == '.') {
+						dotsCount++;
+					}
+				}
+				if (sobakaCount != 1) {
+					throw new Exception("Собака");
+				}
+				if (dotsCount == 0) {
+					throw new Exception("Точки");
 				}
 				if (value.IsNullOrEmpty || value.IsNullOrWhiteSpace {
 					throw new Exception("null/пробелы/пусто");
 				} else
-				{
-					this._Email = value;
+					{
+						this._Email = value;
+					}
 				}
 			}
-		}
-		public User(string firstName, string lastName, string password, string email) {
-			this.FirstName = firstName;
-			this.LastName = lastName;
-			this.Password = password;
-			this.Email = email;
-		}
-		public uint GetId(User user) {
-			return this.user.Id;
-		}
-		public override string ToString() {
-			return $"{Id} | {FirstName} {LastName} {Email} | {Password}";
+			public User(string firstName, string lastName, string password, string email) {
+				this.FirstName = firstName;
+				this.LastName = lastName;
+				this.Password = password;
+				this.Email = email;
+			}
+			public uint GetId(User user) {
+				return this.user.Id;
+			}
+			public override string ToString() {
+				return $"{Id} | {FirstName} {LastName} {Email} | {Password}";
+			}
 		}
 	}
-}
