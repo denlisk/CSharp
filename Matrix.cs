@@ -2,20 +2,18 @@ namespace Matrix
 {
 	public class Matrix
 	{
-		public uint Rows;
-		public uint Columns;
-		private readonly int[,
-		] mass;
+		public uint Rows; // Кол-во строк
+		public uint Columns; // Кол-во столбцов
+		private readonly int[,] mass; // Двумерный массив для хранения элементов данной матрицы
 
 		/// <summary>
-		///Конструктор класса Matrix.
-		///Создаёт матрицу 1 на 1 и заполняет её нулями.
+		/// Конструктор класса Matrix.
+		/// Создаёт матрицу из одного элемента и устанавливает ему значение ноль.
 		/// </summary>
 		public Matrix() {
 			this.Rows = 1;
 			this.Columns = 1;
-			this.mass = new int[Rows,
-				Columns];
+			this.mass = new int[1,1];
 			mass[0,
 				0] = 0;
 		}
@@ -25,33 +23,23 @@ namespace Matrix
 		/// <param name="rows">Количество строк</param>
 		/// <param name="columns">Количество столбцов</param>
 		public Matrix(uint rows, uint columns) {
-			Check(rows);
-			Check(columns);
 			this.Rows = rows;
 			this.Columns = columns;
 			mass = new int[rows,
 				columns];
 		}
 		/// <summary>
-		/// Метод установления значения для элемента матрицы
+		/// Установка значения для элемента матрицы
 		/// </summary>
 		/// <param name="row">Строка элемента</param>
 		/// <param name="column">Столбец элемента</param>
 		/// <param name="value">Значение элемента</param>
 		public void SetValue(uint row, uint column, int value) {
-			Check(row);
-			Check(column);
 			mass[row,
 				column] = value;
 		}
-		public void SetValue(uint row, uint column) {
-			Check(row);
-			Check(column);
-			mass[row,
-				column] = 0;
-		}
 		/// <summary>
-		/// Метод получения значения элемента матрицы
+		/// Получение значения элемента матрицы
 		/// </summary>
 		/// <param name="row">Строка элемента</param>
 		/// <param name="column">Столбец элемента</param>
@@ -65,8 +53,8 @@ namespace Matrix
 		/// <summary>
 		/// Суммирование двух матриц
 		/// </summary>
-		/// <param name="a">Матрица, к элементам которой нужно прибавить значения элементов второй</param>
-		/// <param name="b">Матрица, значения элементов которой нужно прибавить к первой</param>
+		/// <param name="a">Матрица, к элементам которой необходимо прибавить значения элементов второй матрицы</param>
+		/// <param name="b">Матрица, значения элементов которой нужно прибавить к первой матрице</param>
 		/// <returns>Возвращает матрицу с сумированными значениями элементов двух матриц</returns>
 		public static Matrix operator +(Matrix a, Matrix b) {
 			Matrix sum = new Matrix(a.Rows, a.Columns);
@@ -78,10 +66,10 @@ namespace Matrix
 			return sum;
 		}
 		/// <summary>
-		/// Разница двух матриц
+/// Вычитание матриц
 		/// </summary>
-		/// <param name="a">Матрица, от элементов которой нужно отнять значения элементов второй</param>
-		/// <param name="b">Матрица, значения элементов которой нужно отнять от первой</param>
+		/// <param name="a">Матрица, от элементов которой нужно отнять значения элементов второй матрицы</param>
+		/// <param name="b">Матрица, значения элементов которой нужно отнять от первой матрицы</param>
 		/// <returns>Возвращает матрицу</returns>
 		public static Matrix operator -(Matrix a, Matrix b) {
 			Matrix dif = new Matrix(a.Rows, a.Columns);
@@ -92,7 +80,7 @@ namespace Matrix
 			}
 			return dif;
 		}
-		// Если есть переопределение для суммы, то умножение можно не переопределять (?)
+		// Если есть переопределение для суммирования элементов, то умножение переопределять не обязательно
 		public static Matrix operator *(Matrix a, int num) {
 			Matrix mult = new Matrix(a.Rows, a.Columns);
 			for (uint i = 0; i < a.Rows; i++) {
@@ -106,7 +94,7 @@ namespace Matrix
 		/// <summary>
 		/// Переопределение метода ToString
 		/// </summary>
-		/// <returns>Возвращает строку с таблицей элементов матрицы</returns>
+		/// <returns>Возвращает строку с таблицей из элементов матрицы</returns>
 		public override string ToString() {
 			string str = "";
 			for (uint i = 0; i < this.Rows; i++) {
@@ -116,11 +104,6 @@ namespace Matrix
 				str += "\n";
 			}
 			return str;
-		}
-		public static void Check(var value) {
-			if (value < 1) {
-				// Exception
-			}
 		}
 	}
 }
